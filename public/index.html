@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Year 1 contraction spelling games: Squish it, Tap + Read, Tap + Zap, Spell + Zap and Read + Spell, with a parent guide.">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Squish &amp; Zap Spelling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Fredoka:wght@500;600;700&display=swap">
+<style>
+/* Layout: one centred column of chunky workbook panels; each game is a full-width board with huge tap targets */
+:root{
+  --bg:#EAF3FB; --surface:#FFFFFF; --ink:#16263A; --muted:#506379; --line:#CADAEA;
+  --sky:#2569B5; --sky-soft:#D6E8FA; --on-sky:#FFFFFF;
+  --sun:#FFC21A; --sun-soft:#FFF1C2; --on-sun:#2A1F00;
+  --gum:#1F8A58; --gum-soft:#D3F1E1; --coral:#C93E27; --coral-soft:#FBE0DA;
+  --tile:#FFFFFF; --shadow:0 4px 0 #BCD0E5;
+  --f-display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --f-read:"Andika","Century Gothic","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1824; --surface:#16273A; --ink:#E9F1F9; --muted:#9DB2C7; --line:#2C4259;
+  --sky:#7DB9F5; --sky-soft:#1C3A5A; --on-sky:#0B1520;
+  --sun:#FFCF45; --sun-soft:#4A3C10; --on-sun:#2A1F00;
+  --gum:#55CB93; --gum-soft:#143F2B; --coral:#FF8470; --coral-soft:#4B2019;
+  --tile:#1E3349; --shadow:0 4px 0 #08111A; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0E1824; --surface:#16273A; --ink:#E9F1F9; --muted:#9DB2C7; --line:#2C4259;
+  --sky:#7DB9F5; --sky-soft:#1C3A5A; --on-sky:#0B1520;
+  --sun:#FFCF45; --sun-soft:#4A3C10; --on-sun:#2A1F00;
+  --gum:#55CB93; --gum-soft:#143F2B; --coral:#FF8470; --coral-soft:#4B2019;
+  --tile:#1E3349; --shadow:0 4px 0 #08111A; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-read);font-size:17px;line-height:1.55}
+a{color:var(--sky)}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,5vw,2.8rem)}
+h2{font-size:1.5rem}
+h3{font-size:1.2rem}
+p{margin:0}
+.wrap{max-width:900px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 56px}
+main{display:flex;flex-direction:column;gap:28px}
+
+/* header */
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:10px 18px}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--f-display);font-weight:700;font-size:1.35rem;margin-right:auto}
+.brand .boltmark{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--sun);color:var(--on-sun)}
+.topnav{display:flex;gap:4px}
+.topnav a{font-family:var(--f-display);font-weight:500;text-decoration:none;color:var(--ink);padding:8px 12px;border-radius:10px}
+.topnav a:hover,.topnav a[aria-current="page"]{background:var(--sky-soft)}
+.stars{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 12px;font-family:var(--f-display);font-weight:600}
+.stars svg{color:var(--sun)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--f-display);font-weight:600;font-size:1.1rem;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:10px 18px;min-height:50px;box-shadow:var(--shadow);cursor:pointer;text-decoration:none;transition:transform .08s}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.btn.primary{background:var(--sky);color:var(--on-sky);border-color:transparent}
+.btn.sun{background:var(--sun);color:var(--on-sun);border-color:transparent}
+.btn.icon{width:54px;padding:0;font-size:1.8rem}
+.btn.small{min-height:42px;width:46px;font-size:1rem}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.row.left{justify-content:flex-start}
+
+/* home */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:clamp(20px,4vw,36px)}
+.hero-text{display:flex;flex-direction:column;gap:14px;min-width:0}
+.eyebrow{font-family:var(--f-display);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;color:var(--sky)}
+.ap{color:var(--coral);font-size:1.4em;line-height:0}
+.demo{font-family:var(--f-read);font-size:clamp(2.1rem,6vw,3rem);display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--sky-soft);border-radius:22px;padding:20px 12px}
+.demo .from{display:flex;gap:.35em}
+.demo .drop{color:var(--coral);display:inline-block;transform:translateY(-.35em) rotate(-14deg);opacity:.85}
+.demo .arrow{font-family:var(--f-display);font-size:1rem;color:var(--muted)}
+.demo .to .apos{color:var(--coral);font-weight:700}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip-word{font-family:var(--f-read);font-size:1.35rem;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:4px 14px;cursor:pointer;color:var(--ink)}
+.chip-word:hover{border-color:var(--sky)}
+.acts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.act-card{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;height:100%;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:18px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
+.act-card:hover{border-color:var(--sky)}
+.act-card .num{grid-row:span 4;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--sun);color:var(--on-sun);font-family:var(--f-display);font-weight:700;font-size:1.25rem}
+.act-name{font-family:var(--f-display);font-weight:600;font-size:1.3rem}
+.act-kid{font-size:1.02rem}
+.act-parent{font-size:.9rem;color:var(--muted)}
+.act-stars{display:inline-flex;align-items:center;gap:4px;font-family:var(--f-display);font-size:.9rem;color:var(--muted);margin-top:4px}
+.act-stars svg{color:var(--sun)}
+.panel{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:clamp(18px,3.5vw,28px);display:flex;flex-direction:column;gap:14px}
+.callout{background:var(--sun-soft);border-radius:18px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.callout .boltmark{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--sun);color:var(--on-sun)}
+
+/* week table */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:420px}
+th,td{text-align:left;padding:10px 12px;border-bottom:2px solid var(--line);vertical-align:top}
+th{font-family:var(--f-display);font-weight:600}
+td:first-child{font-family:var(--f-display);font-weight:600;white-space:nowrap}
+
+/* activity shell */
+.act-head{display:flex;flex-direction:column;gap:6px}
+.back{font-family:var(--f-display);font-weight:500;text-decoration:none}
+.lede{color:var(--muted);max-width:60ch}
+.wordnav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wn-mid{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.wn-count{font-family:var(--f-display);font-weight:600}
+.chip{font-size:.92rem;color:var(--muted)}
+.board{background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:clamp(18px,4vw,36px);display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.say{font-family:var(--f-display);font-weight:500;font-size:clamp(1.2rem,3.4vw,1.5rem);max-width:30ch}
+.hint{color:var(--muted);min-height:1.6em;max-width:44ch}
+.hint.warn{color:var(--coral)}
+.act-foot{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-display);font-weight:500}
+.act-foot a{text-decoration:none}
+
+/* tiles */
+.wordline{display:inline-flex;flex-direction:column;align-items:stretch;gap:14px;max-width:100%}
+.tiles,.boxes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.tile{font-family:var(--f-read);font-size:clamp(2rem,8vw,3.6rem);line-height:1;min-width:1.5em;height:1.75em;padding:0 .22em;border-radius:16px;background:var(--tile);color:var(--ink);border:3px solid var(--line);box-shadow:var(--shadow);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s,transform .1s}
+.tile.next{border-color:var(--sky);animation:pulse 1.2s ease-in-out infinite}
+.tile.on{background:var(--sun-soft);border-color:var(--sun)}
+.tile.zapped{background:var(--sun);border-color:var(--sun);color:var(--on-sun)}
+.apos-tile{background:transparent;border-style:dashed;box-shadow:none;min-width:.95em;flex-direction:column;gap:2px;color:var(--coral)}
+.apos-tile small{font-family:var(--f-display);font-size:.7rem;line-height:1;color:var(--muted);white-space:nowrap}
+.apos-tile.zapped{background:var(--sun-soft);color:var(--coral)}
+.tile.small{font-size:clamp(1.7rem,6vw,2.4rem);min-width:1.6em}
+.tile.used{visibility:hidden}
+.dots{display:flex;gap:10px;justify-content:center}
+.dots span{width:16px;height:16px;border-radius:50%;border:3px solid var(--sky);background:transparent}
+.dots span.on{background:var(--sky)}
+.box{font-family:var(--f-read);font-size:clamp(2rem,8vw,3.4rem);line-height:1;min-width:1.5em;height:1.75em;padding:0 .2em;border-radius:14px;border:3px solid var(--sky);background:var(--sky-soft);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.box.apos-box{border-style:dashed;min-width:.9em;border-color:var(--coral);background:transparent;color:var(--coral)}
+.box.filled{background:var(--tile)}
+.box.zapped{box-shadow:0 0 0 4px var(--sun)}
+.box.right{background:var(--gum-soft);border-color:var(--gum);border-style:solid}
+.box.wrong{background:var(--coral-soft);border-color:var(--coral);border-style:solid}
+.bank{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:560px}
+
+/* zap */
+.zap-track{position:relative;height:64px;border-radius:32px;background:var(--sky-soft);touch-action:none;opacity:.4;transition:opacity .2s;min-width:240px}
+.zap-track.ready{opacity:1}
+.zap-trail{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:32px;background:var(--sun-soft);pointer-events:none}
+.zap-bolt{position:absolute;left:4px;top:4px;width:56px;height:56px;border-radius:50%;border:none;background:var(--sun);color:var(--on-sun);display:grid;place-items:center;cursor:grab;box-shadow:0 3px 0 rgba(0,0,0,.18);touch-action:none}
+.zap-track.ready .zap-bolt{animation:nudge 1.4s ease-in-out infinite}
+.zap-track.dragging .zap-bolt,.zap-track.done .zap-bolt{animation:none}
+.zap-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:600;color:var(--muted);pointer-events:none;padding-left:56px}
+
+/* squish */
+.squish-line{font-family:var(--f-read);font-size:clamp(2.4rem,10vw,4.4rem);line-height:1.2;display:flex;align-items:flex-end;justify-content:center;min-height:1.6em}
+.squish-line .l{display:inline-block;max-width:1.4em;overflow:visible;transition:max-width .5s ease,opacity .5s ease,transform .6s ease,color .3s}
+.squish-line .l.out{color:var(--coral);transform:translateY(-.9em) rotate(-25deg)}
+.squish-line .l.gone{max-width:0;opacity:0}
+.squish-line .gap{display:inline-block;width:.7em;transition:width .5s ease}
+.squish-line .gap.shut{width:0}
+.squish-line .plus{font-family:var(--f-display);font-size:.5em;color:var(--muted);align-self:center;display:inline-block;max-width:2em;overflow:hidden;transition:max-width .4s,opacity .3s}
+.squish-line .plus.gone{max-width:0;opacity:0}
+.squish-line .apos{display:inline-block;max-width:0;transform:scale(0);color:var(--coral);font-weight:700;transition:max-width .4s ease,transform .45s cubic-bezier(.3,1.6,.6,1)}
+.squish-line .apos.in{max-width:.6em;transform:scale(1.15)}
+.explain{font-size:1.15rem;max-width:40ch}
+.explain b{color:var(--coral)}
+
+/* read + spell */
+.steps{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.steps span{font-family:var(--f-display);font-weight:500;padding:4px 12px;border-radius:999px;border:2px solid var(--line);color:var(--muted)}
+.steps span.on{background:var(--sky);border-color:var(--sky);color:var(--on-sky)}
+.card{font-family:var(--f-read);font-size:clamp(2.6rem,11vw,4.6rem);line-height:1;min-width:min(320px,100%);padding:.35em .6em;border-radius:22px;border:3px solid var(--line);background:var(--tile);position:relative}
+.card.covered{color:transparent;background:repeating-linear-gradient(45deg,var(--sky-soft) 0 14px,var(--surface) 14px 28px);border-color:var(--sky)}
+.card.covered::after{content:"covered";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-size:1.2rem;color:var(--sky);font-weight:600}
+.slots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.slot{font-family:var(--f-read);font-size:clamp(1.8rem,7vw,2.8rem);width:1.2em;height:1.5em;border-bottom:4px solid var(--sky);display:flex;align-items:flex-end;justify-content:center;padding-bottom:.08em}
+.slot.right{border-color:var(--gum);color:var(--gum)}
+.slot.wrong{border-color:var(--coral);color:var(--coral)}
+.keys{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px}
+.key{font-family:var(--f-read);font-size:1.7rem;min-width:56px;height:56px;border-radius:12px;border:2px solid var(--line);background:var(--tile);color:var(--ink);box-shadow:var(--shadow);cursor:pointer}
+.key.apos-key{color:var(--coral);font-weight:700}
+.key.del{font-family:var(--f-display);font-size:1rem;padding:0 14px}
+.answer{font-size:1.1rem}
+.answer b{font-size:1.4rem}
+
+/* done */
+.after{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%}
+.done{display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--gum-soft);border-radius:22px;padding:20px;width:100%}
+.big-word{font-family:var(--f-read);font-size:clamp(3rem,12vw,5rem);line-height:1.1;animation:pop .45s cubic-bezier(.3,1.6,.6,1)}
+.star-row{display:flex;gap:6px;color:var(--sun)}
+.star-row svg{animation:pop .5s cubic-bezier(.3,1.6,.6,1) both}
+.star-row svg:nth-child(2){animation-delay:.1s}
+.star-row svg:nth-child(3){animation-delay:.2s}
+
+/* guide + words */
+.article{display:flex;flex-direction:column;gap:14px;max-width:66ch}
+.article ol,.article ul{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.sound-eg{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.sound-eg span{font-family:var(--f-read);font-size:1.5rem;border:2px solid var(--line);border-radius:10px;padding:0 10px;background:var(--tile)}
+.sound-eg span.q{border-style:dashed;color:var(--coral)}
+.sound-eg em{font-style:normal;color:var(--muted);margin-left:6px}
+.fam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+fieldset{border:2px solid var(--line);border-radius:16px;padding:10px 14px 12px;margin:0;display:flex;flex-direction:column;gap:4px;min-width:0}
+legend{font-family:var(--f-display);font-weight:600;padding:0 6px}
+.check{display:flex;align-items:center;gap:10px;padding:4px 0;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--sky);flex:none}
+.check .w{font-size:1.25rem}
+.check small{color:var(--muted)}
+.check .del-btn{margin-left:auto;font-family:var(--f-display);background:none;border:none;color:var(--coral);cursor:pointer;padding:4px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.wide{grid-column:1/-1}
+.field label{font-family:var(--f-display);font-weight:500}
+.field small{color:var(--muted)}
+.field input{font-family:var(--f-read);font-size:1.15rem;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+.preview{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:44px}
+.preview span{font-family:var(--f-read);font-size:1.4rem;border:2px solid var(--line);border-radius:10px;padding:0 10px;background:var(--tile)}
+
+@keyframes pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+@keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.wiggle{animation:wiggle .3s ease 2 !important}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+
+@media (max-width:680px){
+  .hero{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .topnav a{padding:6px 8px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a href="#home" class="brand"><span class="boltmark" id="brandBolt"></span><span>Squish &amp; Zap</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a href="#home" data-nav="home">Games</a>
+      <a href="#guide" data-nav="guide">Parent guide</a>
+      <a href="#words" data-nav="words">Words</a>
+    </nav>
+    <span class="stars" title="Stars earned"><span id="starIcon"></span><b id="starCount">0</b></span>
+    <button class="btn small" id="voiceBtn" type="button" aria-pressed="true" aria-label="Voice is on. Turn voice off."></button>
+  </header>
+  <main id="view"></main>
+</div>
+
+<script>
+/* ---------- icons ---------- */
+const ICON = {
+  bolt:(s=26)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" aria-hidden="true"><path d="M13.5 2 4 14h7l-1.5 8L19 10h-7z" fill="currentColor"/></svg>`,
+  star:(s=18)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" aria-hidden="true"><path d="m12 2 3 6.6 7.1.8-5.3 4.8 1.5 7L12 17.7l-6.3 3.5 1.5-7L1.9 9.4 9 8.6z" fill="currentColor"/></svg>`,
+  speaker:`<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+  mute:`<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9z" fill="currentColor"/><path d="m16 9 6 6m0-6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
+};
+
+/* ---------- word data ---------- */
+// seg tokens: grapheme or grapheme:sound. ' is the silent apostrophe.
+const RAW = [
+  ["can't","can","not","c:k a:ar n ' t","I can't reach the top shelf.","not"],
+  ["don't","do","not","d o:oh n ' t","I don't like cold soup.","not"],
+  ["isn't","is","not","i s:z n ' t","The cat isn't hungry.","not"],
+  ["didn't","did","not","d i d n ' t","I didn't see the bus.","not"],
+  ["won't","will","not","w o:oh n ' t","The dog won't sit still.","not",true],
+  ["it's","it","is","i t ' s","It's a sunny day.","is"],
+  ["he's","he","is","h e:ee ' s:z","He's my best friend.","is"],
+  ["she's","she","is","sh e:ee ' s:z","She's at the beach.","is"],
+  ["that's","that","is","th a t ' s","That's my hat!","is"],
+  ["I'm","I","am","I ' m","I'm six years old.","am"],
+  ["let's","let","us","l e t ' s","Let's go to the park.","us"],
+  ["I'll","I","will","I ' ll","I'll help you.","will"],
+  ["we'll","we","will","w e:ee ' ll","We'll play after lunch.","will"],
+  ["I've","I","have","I ' ve","I've got a new book.","have"],
+  ["we've","we","have","w e:ee ' ve","We've finished our work.","have"]
+];
+const FAMS = [["not","___ + not"],["is","___ + is"],["am","I + am"],["us","let + us"],["will","___ + will"],["have","___ + have"]];
+const DEFAULT_SEL = ["can't","don't","isn't","didn't","it's","he's","she's","that's","I'm","let's"];
+
+const GRAPH_SOUND = {c:"k",ck:"k",k:"k",q:"k",qu:"kw",ss:"s",ll:"l",ff:"f",zz:"z",ve:"v",ee:"ee",ea:"ee",oo:"oo",ai:"ay",ay:"ay",oa:"oh",ou:"ow",oi:"oy",oy:"oy",ar:"ar",or:"or",er:"er",ir:"er",ur:"er",igh:"eye",tch:"ch",I:"eye"};
+const SOUND_SAY = {k:"kuh",ar:"ar",n:"nuh",t:"tuh",d:"duh",oh:"oh",i:"ih",z:"zzz",w:"wuh",eye:"eye",m:"mmm",s:"sss",h:"huh",ee:"ee",sh:"shh",th:"thh",a:"aah",e:"eh",l:"lll",v:"vvv",p:"puh",b:"buh",g:"guh",f:"fff",r:"rrr",j:"juh",y:"yuh",u:"uh",o:"o",ch:"ch",ng:"ng",x:"ks",kw:"kw",oo:"oo",ay:"ay",or:"or",er:"er",ow:"ow",oy:"oy"};
+const MULTI = ["igh","tch","sh","ch","th","ck","ng","ll","ss","ff","zz","qu","ee","ea","oo","ai","ay","oa","ou","oi","oy","ar","or","er","ir","ur","ve"];
+
+const normApos = s => String(s||"").replace(/[‘’ʼ`]/g,"'");
+function defaultSound(g){ if(g==="'") return null; return GRAPH_SOUND[g] || GRAPH_SOUND[g.toLowerCase()] || g.toLowerCase(); }
+function parseSeg(str){ return str.trim().split(/\s+/).map(t=>{ if(t==="'") return {g:"'",snd:null}; const [g,snd]=t.split(":"); return {g,snd:snd||defaultSound(g)}; }); }
+function autoSeg(input){
+  const w = normApos(input).trim();
+  if(!w) return [];
+  if(/[-\s]/.test(w)) return w.split(/[-\s]+/).filter(Boolean).map(g=>({g,snd:defaultSound(g)}));
+  const out=[]; let i=0;
+  while(i<w.length){
+    let m=null;
+    if(w[i]!=="'") for(const g of MULTI){ if(w.substr(i,g.length).toLowerCase()===g && (g!=="ve"||i+2===w.length)){ m=w.substr(i,g.length); break; } }
+    if(!m) m=w[i];
+    out.push({g:m,snd:defaultSound(m)}); i+=m.length;
+  }
+  return out;
+}
+const BUILT = RAW.map(r=>({id:r[0],w:r[0],a:r[1],b:r[2],seg:parseSeg(r[3]),s:r[4],fam:r[5],tricky:!!r[6]}));
+
+/* ---------- state ---------- */
+const KEY="squishzap_v1";
+let S = {selected:null, custom:[], stars:{}, voice:true, sounds:false, idx:0};
+try{ const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(S,JSON.parse(raw)); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
+const allWords = () => [...BUILT, ...(S.custom||[])];
+const selectedIds = () => Array.isArray(S.selected) ? S.selected : DEFAULT_SEL;
+function activeWords(){ const ids=selectedIds(); const all=allWords(); const l=all.filter(w=>ids.includes(w.id)); return l.length?l:all; }
+function addStar(act,id){ S.stars[act]=S.stars[act]||{}; S.stars[act][id]=(S.stars[act][id]||0)+1; save(); updateStars(); }
+const actStars = act => Object.values(S.stars[act]||{}).reduce((a,b)=>a+b,0);
+const totalStars = () => Object.keys(S.stars).reduce((t,a)=>t+actStars(a),0);
+function updateStars(){ document.getElementById("starCount").textContent=totalStars(); }
+
+/* ---------- helpers ---------- */
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle=a=>{ a=[...a]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const PRAISE=["Brilliant!","You did it!","Super spelling!","Lightning fast!","Great work!","Ripper!"];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function wiggle(el){ el.classList.remove("wiggle"); void el.offsetWidth; el.classList.add("wiggle"); el.addEventListener("animationend",()=>el.classList.remove("wiggle"),{once:true}); }
+function hint(b,msg,warn){ const h=$(".hint",b); if(!h) return; h.textContent=msg; h.classList.toggle("warn",!!warn); }
+const famLabel = w => (w.a && w.b) ? `${w.a} + ${w.b}` : "your own word";
+const soundCount = w => w.seg.filter(s=>s.g!=="'").length;
+
+/* ---------- speech ---------- */
+let VOICE=null;
+function pickVoice(){
+  if(!("speechSynthesis" in window)) return;
+  const vs=speechSynthesis.getVoices();
+  VOICE = vs.find(v=>/en[-_]AU/i.test(v.lang)) || vs.find(v=>/en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null;
+}
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+function speak(text,rate=0.85){
+  if(!S.voice || !("speechSynthesis" in window)) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;} else u.lang="en-AU"; u.rate=rate; speechSynthesis.speak(u); }catch(e){}
+}
+function stopSpeech(){ try{ if("speechSynthesis" in window) speechSynthesis.cancel(); }catch(e){} }
+
+/* ---------- activities ---------- */
+const ACTS=[
+  {id:"squish",name:"Squish it",kid:"Watch two words squish into one.",parent:"Shows what the apostrophe is for: it holds the place of the missing letters."},
+  {id:"tap-read",name:"Tap + Read",kid:"Tap each sound, then read the word.",parent:"One tap for each sound, left to right. Then your child reads the whole word."},
+  {id:"tap-zap",name:"Tap + Zap",kid:"Tap the sounds, then zap them together.",parent:"After tapping, a quick finger sweep under the word (the zap) blends the sounds."},
+  {id:"spell-zap",name:"Spell + Zap",kid:"Listen, spell it sound by sound, zap to check.",parent:"Your child hears the word, puts one sound in each box, then zaps to check it."},
+  {id:"read-spell",name:"Read + Spell",kid:"Read it, cover it, spell it from memory.",parent:"Look, say, cover, write, check. Builds memory for how the whole word looks."}
+];
+
+function shell(el,actId,body){
+  const list=activeWords(); if(S.idx>=list.length) S.idx=0;
+  const w=list[S.idx]; const n=ACTS.findIndex(a=>a.id===actId); const act=ACTS[n];
+  el.innerHTML=`
+  <div class="act-head"><a href="#home" class="back">‹ All games</a><h1>${act.name}</h1><p class="lede">${act.parent}</p></div>
+  <div class="wordnav">
+    <button class="btn icon" id="prev" type="button" aria-label="Previous word">‹</button>
+    <div class="wn-mid"><span class="wn-count">Word ${S.idx+1} of ${list.length}</span><span class="chip">${esc(famLabel(w))}</span></div>
+    <button class="btn icon" id="next" type="button" aria-label="Next word">›</button>
+  </div>
+  <section class="board" id="board"></section>
+  <div class="act-foot">${n>0?`<a href="#${ACTS[n-1].id}">‹ ${ACTS[n-1].name}</a>`:"<span></span>"}${n<ACTS.length-1?`<a href="#${ACTS[n+1].id}">${ACTS[n+1].name} ›</a>`:`<a href="#home">All games ›</a>`}</div>`;
+  const go=d=>{ stopSpeech(); S.idx=(S.idx+d+list.length)%list.length; save(); shell(el,actId,body); };
+  $("#prev",el).onclick=()=>go(-1);
+  $("#next",el).onclick=()=>go(1);
+  body($("#board",el),w,()=>go(1),()=>shell(el,actId,body));
+}
+
+function celebrate(b,w,next,again,extra=""){
+  const after=$(".after",b); after.hidden=false;
+  after.innerHTML=`<div class="done">
+    <div class="star-row">${ICON.star(34)}${ICON.star(34)}${ICON.star(34)}</div>
+    <div class="big-word">${esc(w.w)}</div>
+    <p class="say">${pick(PRAISE)} You earned a star.</p>${extra}
+    <div class="row"><button class="btn" type="button" data-hear>${ICON.speaker} Hear it</button><button class="btn" type="button" data-again>Again</button><button class="btn primary" type="button" data-next>Next word ›</button></div>
+  </div>`;
+  $("[data-hear]",after).onclick=()=>speak(w.w);
+  $("[data-again]",after).onclick=again;
+  $("[data-next]",after).onclick=next;
+  $("[data-next]",after).focus({preventScroll:true});
+  after.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function tilesBlock(w,withZap){
+  return `<div class="wordline"><div class="tiles">${w.seg.map((s,i)=> s.g==="'"
+    ? `<button class="tile apos-tile" type="button" aria-label="Apostrophe. It has no sound."><span>'</span><small>no sound</small></button>`
+    : `<button class="tile" type="button" data-i="${i}">${esc(s.g)}</button>`).join("")}</div>${withZap?zapHTML():""}</div>
+    <div class="dots" aria-hidden="true"></div>`;
+}
+const zapHTML=(label="Zap!")=>`<div class="zap-track"><div class="zap-trail"></div><span class="zap-label">${label}</span><button class="zap-bolt" type="button" aria-label="Zap: slide or tap to blend the sounds">${ICON.bolt(30)}</button></div>`;
+
+function tapPart(b,w,onAll){
+  const order=w.seg.map((s,i)=>s.g==="'"?-1:i).filter(i=>i>=0);
+  let next=0;
+  const row=$(".tiles",b), dots=$(".dots",b);
+  const refresh=()=>{
+    $$(".tile[data-i]",row).forEach(t=>t.classList.toggle("next",+t.dataset.i===order[next]));
+    dots.innerHTML=order.map((_,k)=>`<span class="${k<next?"on":""}"></span>`).join("");
+  };
+  row.addEventListener("click",e=>{
+    const t=e.target.closest(".tile"); if(!t) return;
+    if(t.dataset.i===undefined){ wiggle(t); hint(b,"Shh! The apostrophe has no sound. Skip over it."); return; }
+    if(next>=order.length) return;
+    const i=+t.dataset.i;
+    if(i!==order[next]){ wiggle(t); hint(b,"Start on the left and go in order.",true); return; }
+    t.classList.add("on");
+    if(S.sounds) speak(SOUND_SAY[w.seg[i].snd]||w.seg[i].g,.8);
+    next++; refresh();
+    if(next===order.length) onAll(); else hint(b,`${next} tap${next>1?"s":""}. Keep going.`);
+  });
+  refresh();
+}
+
+function setupZap(b,getTargets,onDone,notReadyMsg){
+  const track=$(".zap-track",b), bolt=$(".zap-bolt",b), trail=$(".zap-trail",b), label=$(".zap-label",b);
+  let dragging=false, moved=false, startX=0, done=false;
+  const max=()=>Math.max(1,track.clientWidth-bolt.offsetWidth-8);
+  function setPos(px){
+    px=Math.max(0,Math.min(max(),px));
+    bolt.style.transform=`translateX(${px}px)`;
+    trail.style.width=(px+bolt.offsetWidth/2+4)+"px";
+    if(label) label.style.opacity=px>10?0:1;
+    const tr=track.getBoundingClientRect(); const bx=tr.left+4+px+bolt.offsetWidth/2;
+    getTargets().forEach(t=>{ const r=t.getBoundingClientRect(); t.classList.toggle("zapped", px>0 && r.left+r.width/2<=bx); });
+    return px/max();
+  }
+  function finish(){ if(done) return; done=true; dragging=false; track.classList.remove("dragging"); setPos(max()); track.classList.add("done"); onDone(); }
+  function autoZap(){
+    if(done) return;
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){ finish(); return; }
+    let p=0; const m=max();
+    const timer=setInterval(()=>{ p+=m/28; if(p>=m){ clearInterval(timer); finish(); return; } setPos(p); },18);
+  }
+  const ready=()=>track.classList.contains("ready");
+  bolt.addEventListener("pointerdown",e=>{
+    if(done) return;
+    if(!ready()){ wiggle(bolt); hint(b,notReadyMsg,true); return; }
+    dragging=true; moved=false; startX=e.clientX; track.classList.add("dragging");
+    try{ bolt.setPointerCapture(e.pointerId); }catch(_){}
+  });
+  bolt.addEventListener("pointermove",e=>{
+    if(!dragging) return;
+    if(Math.abs(e.clientX-startX)>6) moved=true;
+    if(!moved) return;
+    const tr=track.getBoundingClientRect();
+    if(setPos(e.clientX-tr.left-4-bolt.offsetWidth/2)>=.96) finish();
+  });
+  const up=()=>{
+    if(!dragging) return; dragging=false; track.classList.remove("dragging");
+    if(!moved){ autoZap(); return; }
+    if(!done){ setPos(0); hint(b,"Slide the bolt all the way to the end!"); }
+  };
+  bolt.addEventListener("pointerup",up);
+  bolt.addEventListener("pointercancel",up);
+  bolt.addEventListener("click",e=>{ if(e.detail===0){ if(ready()) autoZap(); else hint(b,notReadyMsg,true); } }); // keyboard
+  return { reset(){ done=false; track.classList.remove("done"); setPos(0); getTargets().forEach(t=>t.classList.remove("zapped")); } };
+}
+
+/* Squish it */
+function subseqRemoved(joined,bare){
+  const removed=new Set(); let j=0;
+  for(let i=0;i<joined.length;i++){
+    if(j<bare.length && joined[i].toLowerCase()===bare[j].toLowerCase()) j++;
+    else removed.add(i);
+  }
+  return j===bare.length && removed.size ? removed : null;
+}
+function squish(el){ shell(el,"squish",(b,w,next,again)=>{
+  if(!w.a||!w.b){
+    b.innerHTML=`<p class="say">This word doesn't have its two words yet.</p><p>Add them on the <a href="#words">Words page</a>, then come back.</p>`;
+    return;
+  }
+  const joined=w.a+w.b, bare=w.w.replace(/'/g,"");
+  const removed = w.tricky ? null : subseqRemoved(joined,bare);
+  const first = removed ? Math.min(...removed) : -1;
+  let html="";
+  [...joined].forEach((ch,i)=>{
+    if(i===w.a.length) html+=`<span class="gap"></span><span class="plus">+</span><span class="gap"></span>`;
+    if(i===first) html+=`<span class="apos">'</span>`;
+    html+=`<span class="l" data-i="${i}">${esc(ch)}</span>`;
+  });
+  b.innerHTML=`<p class="say">Two words are going to squish into one.</p>
+    <div class="squish-line" id="sq" aria-label="${esc(w.a)} plus ${esc(w.b)}">${html}</div>
+    <p class="hint" aria-live="polite">Read the two words together first: “${esc(w.a)} ${esc(w.b)}”.</p>
+    <div class="row" id="sqBtns"><button class="btn" type="button" id="hear2">${ICON.speaker} Hear the two words</button><button class="btn sun" type="button" id="go">Squish!</button></div>
+    <div class="after" hidden></div>`;
+  $("#hear2",b).onclick=()=>speak(`${w.a} ${w.b}`);
+  $("#go",b).onclick=()=>{
+    $("#sqBtns",b).hidden=true;
+    const sq=$("#sq",b);
+    $$(".plus",sq).forEach(p=>p.classList.add("gone"));
+    $$(".gap",sq).forEach(g=>g.classList.add("shut"));
+    let extra;
+    if(removed){
+      const letters=[...removed].map(i=>joined[i]).join("");
+      $$(".l",sq).forEach(l=>{ if(removed.has(+l.dataset.i)) l.classList.add("out"); });
+      setTimeout(()=>{ $$(".l.out",sq).forEach(l=>l.classList.add("gone")); },650);
+      setTimeout(()=>{ const a=$(".apos",sq); if(a) a.classList.add("in"); },1000);
+      extra=`<p class="explain">The letter${letters.length>1?"s":""} ${[...letters].map(c=>`<b>${esc(c)}</b>`).join(" and ")} flew away. The apostrophe <b>'</b> sits where ${letters.length>1?"they were":"it was"}.</p>`;
+      hint(b,`${w.a} + ${w.b} = ${w.w}`);
+    }else{
+      $$(".l",sq).forEach(l=>l.classList.add("out"));
+      setTimeout(()=>{ sq.innerHTML=`<span>${esc(w.w)}</span>`; },700);
+      extra=`<p class="explain"><b>${esc(w.w)}</b> is a tricky one. “${esc(w.a)} ${esc(w.b)}” changes its letters when it squishes, so we just remember it.</p>`;
+      hint(b,`${w.a} + ${w.b} = ${w.w}`);
+    }
+    setTimeout(()=>speak(`${w.a} ${w.b}. ${w.w}`),300);
+    setTimeout(()=>{ addStar("squish",w.id); celebrate(b,w,next,again,extra); },1400);
+  };
+});}
+
+/* Tap + Read */
+function tapRead(el){ shell(el,"tap-read",(b,w,next,again)=>{
+  b.innerHTML=`<p class="say">Tap each sound. One tap for each sound.</p>${tilesBlock(w,false)}
+    <p class="hint" aria-live="polite">Say each sound out loud as you tap it.</p>
+    <div class="after" id="ask" hidden><p class="say">Now read the whole word out loud!</p>
+      <div class="row"><button class="btn" type="button" id="hear">${ICON.speaker} Check: hear it</button><button class="btn primary" type="button" id="got">I read it!</button></div></div>`;
+  tapPart(b,w,()=>{ $("#ask",b).hidden=false; hint(b,`${soundCount(w)} sounds. Great tapping!`); });
+  $("#hear",b).onclick=()=>speak(w.w);
+  $("#got",b).onclick=()=>{ addStar("tap-read",w.id); celebrate(b,w,next,again); };
+});}
+
+/* Tap + Zap */
+function tapZap(el){ shell(el,"tap-zap",(b,w,next,again)=>{
+  b.innerHTML=`<p class="say" id="instr">Tap each sound first.</p>${tilesBlock(w,true)}
+    <p class="hint" aria-live="polite">Say each sound out loud as you tap it.</p><div class="after" hidden></div>`;
+  setupZap(b,()=>$$(".tiles .tile",b),()=>{
+    speak(w.w);
+    $("#instr",b).textContent="Zap! The sounds joined into one word.";
+    addStar("tap-zap",w.id); celebrate(b,w,next,again);
+  },"Tap all the sounds first, then zap.");
+  tapPart(b,w,()=>{
+    $(".zap-track",b).classList.add("ready");
+    $("#instr",b).textContent="Now zap! Slide the bolt under the word and say it fast.";
+    hint(b,"Drag the lightning bolt from left to right, or just tap it.");
+  });
+});}
+
+/* Spell + Zap */
+const CONFUSE={c:["k"],k:["c"],s:["z"],z:["s"],d:["b"],b:["d"],ll:["l"],l:["ll"],ve:["v"],v:["ve"],sh:["s","ch"],th:["f","t"],e:["ee"],ee:["e"],o:["oa"],a:["ar","u"],i:["e"],n:["m"],m:["n"],t:["d"],w:["u"],h:["n"],I:["i"]};
+function distractors(w){
+  const inWord=new Set(w.seg.map(s=>s.g.toLowerCase()));
+  let out=[];
+  w.seg.forEach(s=>(CONFUSE[s.g]||[]).forEach(c=>{ if(!inWord.has(c.toLowerCase())&&!out.includes(c)) out.push(c); }));
+  out=shuffle(out).slice(0,3);
+  for(const f of shuffle(["m","p","a","u","o","r"])){ if(out.length>=3) break; if(!inWord.has(f)&&!out.includes(f)) out.push(f); }
+  return out;
+}
+function spellZap(el){ shell(el,"spell-zap",(b,w,next,again)=>{
+  const bank=shuffle([...w.seg.map(s=>s.g),...distractors(w)]).map((g,k)=>({g,k}));
+  const filled=w.seg.map(()=>null);
+  const sayIt=()=>speak(`${w.w}. ${w.s||""} ${w.w}.`);
+  b.innerHTML=`<p class="say">Listen to the word. Spell it with one sound in each box.</p>
+    <div class="row"><button class="btn sun" type="button" id="listen">${ICON.speaker} Listen</button></div>
+    <p class="hint" aria-live="polite">It has ${soundCount(w)} sounds and an apostrophe. Tap the sounds on your fingers first.</p>
+    <div class="wordline"><div class="boxes">${w.seg.map((s,i)=>`<button class="box${s.g==="'"?" apos-box":""}" type="button" data-i="${i}" aria-label="${s.g==="'"?"Apostrophe box":"Sound box "+(i+1)}"></button>`).join("")}</div>${zapHTML("Zap to check")}</div>
+    <div class="bank" aria-label="Sound tiles">${bank.map(t=>`<button class="tile small" type="button" data-k="${t.k}">${esc(t.g)}</button>`).join("")}</div>
+    <div class="after" hidden></div>`;
+  $("#listen",b).onclick=sayIt;
+  const track=$(".zap-track",b);
+  const boxes=$$(".box",b);
+  const syncReady=()=>{ track.classList.toggle("ready",filled.every(f=>f!==null)); };
+  const z=setupZap(b,()=>boxes,()=>{
+    let ok=true;
+    boxes.forEach((bx,i)=>{ const right=bank[filled[i]].g.toLowerCase()===w.seg[i].g.toLowerCase(); bx.classList.add(right?"right":"wrong"); if(!right) ok=false; });
+    if(ok){ speak(w.w); addStar("spell-zap",w.id); celebrate(b,w,next,again); $(".bank",b).hidden=true; }
+    else{ hint(b,"Nearly! Tap a red box to send it back, then try again.",true); setTimeout(()=>z.reset(),700); }
+  },"Fill every box first, then zap to check.");
+  $(".bank",b).addEventListener("click",e=>{
+    const t=e.target.closest(".tile"); if(!t||t.classList.contains("used")) return;
+    const slot=filled.findIndex(f=>f===null); if(slot<0){ hint(b,"All boxes are full. Zap to check!"); return; }
+    filled[slot]=+t.dataset.k; t.classList.add("used");
+    const bx=boxes[slot]; bx.textContent=bank[filled[slot]].g; bx.classList.add("filled");
+    syncReady();
+    if(filled.every(f=>f!==null)) hint(b,"Read it back to yourself. Then zap to check!");
+  });
+  $(".boxes",b).addEventListener("click",e=>{
+    const bx=e.target.closest(".box"); if(!bx) return; const i=+bx.dataset.i;
+    if(filled[i]===null) return;
+    $(`.bank .tile[data-k="${filled[i]}"]`,b).classList.remove("used");
+    filled[i]=null; bx.textContent=""; bx.classList.remove("filled","right","wrong");
+    boxes.forEach(x=>x.classList.remove("right","wrong"));
+    z.reset(); syncReady();
+  });
+});}
+
+/* Read + Spell */
+let keyHandler=null;
+function readSpell(el){ shell(el,"read-spell",(b,w,next,again)=>{
+  const target=[...w.w];
+  const inWord=new Set(target.filter(c=>c!=="'"));
+  const extra=shuffle([..."abdehilmnostuw"].filter(c=>!inWord.has(c)&&!inWord.has(c.toUpperCase()))).slice(0,4);
+  const keys=[...new Set([...inWord,...extra])].sort((a,b)=>a.toLowerCase().localeCompare(b.toLowerCase()));
+  let phase="look", typed=[];
+  function render(){
+    const stepOn = phase==="look"?[0,1]:phase==="spell"?[2,3]:[4];
+    const steps=["Look","Say","Cover","Spell","Check"].map((s,i)=>`<span class="${stepOn.includes(i)?"on":""}">${s}</span>`).join("");
+    let inner="";
+    if(phase==="look"){
+      inner=`<p class="say">Look at the word. Say it out loud.</p>
+        <div class="card">${esc(w.w)}</div>
+        <p class="hint" aria-live="polite">Notice where the apostrophe goes.</p>
+        <div class="row"><button class="btn" type="button" id="hear">${ICON.speaker} Hear it</button><button class="btn primary" type="button" id="cover">I've read it. Cover it!</button></div>`;
+    }else{
+      const correct = phase==="check" && typed.join("")===w.w;
+      inner=`<p class="say">${phase==="spell"?"Now spell it from memory.":(correct?"Uncovered. Let's check!":"Uncovered. Compare the letters.")}</p>
+        <div class="card${phase==="spell"?" covered":""}">${esc(w.w)}</div>
+        <div class="slots">${target.map((c,i)=>{ const t=typed[i]||""; const cls=phase==="check"?(t===c?" right":" wrong"):""; return `<span class="slot${cls}">${esc(t)}</span>`; }).join("")}</div>
+        <p class="hint" aria-live="polite">${phase==="spell"?`${target.length} letters, counting the apostrophe.`:""}</p>
+        ${phase==="spell"?`<div class="keys">${keys.map(k=>`<button class="key" type="button" data-k="${esc(k)}">${esc(k)}</button>`).join("")}<button class="key apos-key" type="button" data-k="'" aria-label="apostrophe">'</button><button class="key del" type="button" data-del>⌫ Undo</button></div>
+          <div class="row"><button class="btn primary" type="button" id="check" ${typed.length===target.length?"":"disabled"}>Check</button></div>`
+        : (correct?"":`<p class="answer">It's spelled <b>${esc(w.w)}</b>.</p><div class="row"><button class="btn primary" type="button" id="retry">Look again and retry</button></div>`)}`;
+    }
+    b.innerHTML=`<div class="steps" aria-label="Steps">${steps}</div>${inner}<div class="after" hidden></div>`;
+    if(phase==="look"){
+      $("#hear",b).onclick=()=>speak(w.w);
+      $("#cover",b).onclick=()=>{ phase="spell"; typed=[]; render(); };
+    }else if(phase==="spell"){
+      $(".keys",b).addEventListener("click",e=>{ const k=e.target.closest(".key"); if(!k) return; if(k.hasAttribute("data-del")) del(); else type(k.dataset.k); });
+      $("#check",b).onclick=check;
+    }else if(typed.join("")===w.w){
+      speak(w.w); addStar("read-spell",w.id); celebrate(b,w,next,again,`<p>Now write it on paper too, nice and neat.</p>`);
+    }else{
+      $("#retry",b).onclick=()=>{ phase="look"; typed=[]; render(); };
+    }
+  }
+  function type(c){ if(phase!=="spell"||typed.length>=target.length) return; typed.push(c); render(); }
+  function del(){ if(phase!=="spell") return; typed.pop(); render(); }
+  function check(){ if(typed.length===target.length){ phase="check"; render(); } }
+  keyHandler=e=>{
+    if(phase!=="spell"||e.ctrlKey||e.metaKey||e.altKey) return;
+    if(e.key==="Backspace"){ e.preventDefault(); del(); return; }
+    if(e.key==="Enter"){ check(); return; }
+    const k=normApos(e.key);
+    if(k.length===1 && /[a-zA-Z']/.test(k)){ const m=keys.find(x=>x===k)||keys.find(x=>x.toLowerCase()===k.toLowerCase())||(k==="'"?"'":null)||k.toLowerCase(); type(m); }
+  };
+  render();
+});}
+
+/* ---------- pages ---------- */
+function home(el){
+  const list=activeWords();
+  el.innerHTML=`
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Year 1 spelling · contractions</p>
+      <h1>Two words squish into one.</h1>
+      <p>Some letters fly away and an apostrophe <b class="ap">'</b> takes their place. Practise this week's words with five short games.</p>
+      <div class="row left"><a class="btn primary" href="#squish">Start with Squish it</a><a class="btn" href="#guide">Parent guide</a></div>
+    </div>
+    <div class="demo" aria-label="do plus not makes don't">
+      <div class="from"><span>do</span><span>n<span class="drop">o</span>t</span></div>
+      <div class="arrow">squish ↓</div>
+      <div class="to">don<span class="apos">'</span>t</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>This week's words</h2><a href="#words">Change words</a></div>
+    <div class="chips">${list.map((w,i)=>`<button class="chip-word" type="button" data-i="${i}" title="Hear it">${esc(w.w)}</button>`).join("")}</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>The games, in teaching order</h2></div>
+    <ol class="acts">${ACTS.map((a,i)=>`<li><a class="act-card" href="#${a.id}"><span class="num">${i+1}</span><span class="act-name">${a.name}</span><span class="act-kid">${a.kid}</span><span class="act-parent">${a.parent}</span><span class="act-stars">${ICON.star(16)} ${actStars(a.id)} stars</span></a></li>`).join("")}</ol>
+  </section>
+
+  <section class="callout"><span class="boltmark">${ICON.bolt(20)}</span><p><b>New to tapping and zapping?</b> The <a href="#guide">parent guide</a> explains each step in plain words, plus how to do it on paper. It takes about two minutes to read.</p></section>`;
+  $(".chips",el).addEventListener("click",e=>{ const c=e.target.closest(".chip-word"); if(!c) return; S.idx=+c.dataset.i; save(); speak(list[S.idx].w); });
+}
+
+function guide(el){
+  el.innerHTML=`
+  <div class="act-head"><a href="#home" class="back">‹ Games</a><h1>Parent guide</h1>
+    <p class="lede">You don't need to know the school's program. Here is what each step means and how to run it at the kitchen table, with or without this site.</p></div>
+
+  <section class="panel article">
+    <h2>What is a contraction?</h2>
+    <p>Two words squished into one shorter word. Some letters drop out, and an apostrophe <b class="ap">'</b> goes where they were.</p>
+    <div class="sound-eg"><span>do</span> + <span>not</span> <em>→</em> <span>don't</span><em>the o flew away</em></div>
+    <p>Teachers often call the apostrophe a little flying comma that holds the place of the missing letters.</p>
+  </section>
+
+  <section class="panel article">
+    <h2>Sounds, not letters</h2>
+    <p>Tapping counts <b>sounds</b>. A sound can be one letter, like <b>d</b>, or a team of letters that make one sound, like <b>sh</b>, <b>th</b> or <b>ll</b>. A team gets one tap. The apostrophe gets <b>no tap</b> because it makes no sound.</p>
+    <div class="sound-eg"><span>sh</span><span>e</span><span class="q">'</span><span>s</span><em>she's: 3 taps</em></div>
+    <div class="sound-eg"><span>c</span><span>a</span><span>n</span><span class="q">'</span><span>t</span><em>can't: 4 taps</em></div>
+    <p><b>Say sounds short and clean.</b> Stretchy sounds can be held: “mmm”, “sss”, “nnn”, “lll”, “shh”. Bouncy sounds are quick: say “t” as a short puff, not “tuh”. The same goes for d, k, p, b and g.</p>
+    <p><b>Aussie accent note:</b> in Australian English, <i>can't</i> sounds like “carnt”, so its <b>a</b> makes an “ar” sound. That's normal, and it's how the word is taught here.</p>
+  </section>
+
+  <section class="panel article">
+    <h2>Tap + Read</h2>
+    <ol>
+      <li>Your child taps a finger to their thumb for each sound (pointer, middle, ring, pinkie), or taps the table under each sound. They say the sound with each tap.</li>
+      <li>Always left to right. Skip the apostrophe.</li>
+      <li>Then they read the whole word.</li>
+    </ol>
+  </section>
+
+  <section class="panel article">
+    <h2>Tap + Zap</h2>
+    <ol>
+      <li>Tap the sounds as above.</li>
+      <li><b>Zap:</b> slide a finger quickly under the word from left to right, saying the sounds faster and faster until they join into the word. Think of a lightning bolt sweeping under it.</li>
+    </ol>
+    <p>Zapping is blending. It turns separate sounds into one word.</p>
+  </section>
+
+  <section class="panel article">
+    <h2>Spell + Zap</h2>
+    <ol>
+      <li>You say the word and use it in a sentence: “don't. I don't like cold soup. don't.”</li>
+      <li>Your child says the word back and taps the sounds on their fingers.</li>
+      <li>They write one sound for each tap, and put the apostrophe where the letters dropped out.</li>
+      <li><b>Zap</b> under what they wrote and read it back. Does it say the word? If not, find the sound that's wrong and fix just that one.</li>
+    </ol>
+  </section>
+
+  <section class="panel article">
+    <h2>Read + Spell</h2>
+    <p>This is the classic “look, say, cover, write, check”.</p>
+    <ol>
+      <li>Look at the word and read it out loud.</li>
+      <li>Cover it with your hand or a sticky note.</li>
+      <li>Write it from memory.</li>
+      <li>Uncover it and check each letter. Fix mistakes in a different coloured pencil so you can both see what was tricky.</li>
+    </ol>
+  </section>
+
+  <section class="panel article">
+    <h2>A 10-minute week</h2>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Day</th><th>Do this</th></tr></thead>
+      <tbody>
+        <tr><td>Monday</td><td>Squish it for every word, then Tap + Read</td></tr>
+        <tr><td>Tuesday</td><td>Tap + Zap</td></tr>
+        <tr><td>Wednesday</td><td>Spell + Zap</td></tr>
+        <tr><td>Thursday</td><td>Read + Spell, then write each word once on paper</td></tr>
+        <tr><td>Friday</td><td>Practice test: you say each word, your child writes it, then zaps to check</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="panel article">
+    <h2>Tips</h2>
+    <ul>
+      <li>Short and often beats long. Stop while it's still fun.</li>
+      <li>Praise the trying: “You tapped every sound!” works better than “Good girl” or “Good boy”.</li>
+      <li>If your child is stuck, show them once, then let them have a go.</li>
+      <li>Schools word these steps slightly differently. If the take-home sheet says something different, follow the sheet.</li>
+    </ul>
+  </section>`;
+}
+
+function words(el){
+  const sel=new Set(selectedIds());
+  const all=allWords();
+  const idxOf=w=>all.indexOf(w);
+  const row=(w,del)=>`<label class="check"><input type="checkbox" id="w${idxOf(w)}" value="${esc(w.id)}" ${sel.has(w.id)?"checked":""}><span class="w">${esc(w.w)}</span>${w.a&&w.b?`<small>${esc(w.a)} ${esc(w.b)}</small>`:""}${del?`<button type="button" class="del-btn" data-del="${esc(w.id)}" aria-label="Delete ${esc(w.w)}">Delete</button>`:""}</label>`;
+  el.innerHTML=`
+  <div class="act-head"><a href="#home" class="back">‹ Games</a><h1>This week's words</h1>
+    <p class="lede">Tick the words on your child's list. Add any others from the school sheet below. The games use only the ticked words.</p></div>
+  <section class="panel">
+    <div class="fam-grid" id="wordList">
+      ${FAMS.map(([f,label])=>`<fieldset><legend>${label}</legend>${BUILT.filter(w=>w.fam===f).map(w=>row(w)).join("")}</fieldset>`).join("")}
+      ${S.custom.length?`<fieldset><legend>Your words</legend>${S.custom.map(w=>row(w,true)).join("")}</fieldset>`:""}
+    </div>
+    <div class="row left"><button class="btn" type="button" id="all">Tick all</button><button class="btn" type="button" id="none">Untick all</button></div>
+    <p class="hint" id="selHint"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Add your own word</h2>
+    <form id="addForm" class="form-grid" autocomplete="off">
+      <div class="field wide"><label for="f_word">Word</label><input id="f_word" required placeholder="you're" autocapitalize="off" spellcheck="false">
+        <small>To control the sound tiles, put a dash between sounds, like <b>y-ou-'-re</b>.</small></div>
+      <div class="field wide"><span class="field-label" style="font-family:var(--f-display);font-weight:500">Sound tiles</span><div class="preview" id="pv"><small style="color:var(--muted)">Type a word to see its tiles.</small></div></div>
+      <div class="field"><label for="f_a">First word</label><input id="f_a" placeholder="you" autocapitalize="off"></div>
+      <div class="field"><label for="f_b">Second word</label><input id="f_b" placeholder="are" autocapitalize="off"></div>
+      <div class="field wide"><label for="f_s">Sentence (read out in Spell + Zap)</label><input id="f_s" placeholder="You're my best friend."></div>
+      <div class="field wide"><button class="btn primary" type="submit" style="align-self:flex-start">Add word</button></div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Voice</h2>
+    <label class="check"><input type="checkbox" id="optVoice" ${S.voice?"checked":""}> Read words and sentences out loud</label>
+    <label class="check"><input type="checkbox" id="optSounds" ${S.sounds?"checked":""}> Also say each single sound when tapping <small>(computer voices often get single sounds wrong, so it's better if you say them)</small></label>
+  </section>`;
+
+  const updHint=()=>{ $("#selHint",el).textContent = `${activeWords().length} words in this week's list.`+(selectedIds().length?"":" Nothing ticked, so the games use every word."); };
+  const readSel=()=>{ S.selected=$$("#wordList input[type=checkbox]",el).filter(c=>c.checked).map(c=>c.value); S.idx=0; save(); updHint(); };
+  $("#wordList",el).addEventListener("change",readSel);
+  $("#wordList",el).addEventListener("click",e=>{
+    const d=e.target.closest("[data-del]"); if(!d) return; e.preventDefault();
+    const id=d.dataset.del; S.custom=S.custom.filter(w=>w.id!==id); S.selected=selectedIds().filter(x=>x!==id); save(); words(el);
+  });
+  $("#all",el).onclick=()=>{ $$("#wordList input",el).forEach(c=>c.checked=true); readSel(); };
+  $("#none",el).onclick=()=>{ $$("#wordList input",el).forEach(c=>c.checked=false); readSel(); };
+  const pv=$("#pv",el), fw=$("#f_word",el);
+  fw.addEventListener("input",()=>{ const seg=autoSeg(fw.value); pv.innerHTML=seg.length?seg.map(s=>`<span>${esc(s.g)}</span>`).join(""):`<small style="color:var(--muted)">Type a word to see its tiles.</small>`; });
+  $("#addForm",el).addEventListener("submit",e=>{
+    e.preventDefault();
+    const seg=autoSeg(fw.value); if(!seg.length) return;
+    const w=seg.map(s=>s.g).join("");
+    const id="c_"+Date.now();
+    S.custom.push({id,w,a:normApos($("#f_a",el).value.trim()),b:normApos($("#f_b",el).value.trim()),s:$("#f_s",el).value.trim(),seg,fam:"custom",tricky:false});
+    S.selected=[...selectedIds(),id]; save(); words(el);
+    $("#selHint",el).textContent=`Added “${w}” and ticked it.`;
+  });
+  $("#optVoice",el).onchange=e=>{ S.voice=e.target.checked; save(); syncVoiceBtn(); };
+  $("#optSounds",el).onchange=e=>{ S.sounds=e.target.checked; save(); };
+  updHint();
+}
+
+/* ---------- router ---------- */
+const VIEWS={home,guide,words,squish,"tap-read":tapRead,"tap-zap":tapZap,"spell-zap":spellZap,"read-spell":readSpell};
+const view=document.getElementById("view");
+function route(){
+  stopSpeech(); keyHandler=null;
+  const h=location.hash.slice(1); const name=VIEWS[h]?h:"home";
+  VIEWS[name](view);
+  $$(".topnav a").forEach(a=>a.toggleAttribute("aria-current",false));
+  const nav=$(`.topnav a[data-nav="${ACTS.some(a=>a.id===name)?"home":name}"]`); if(nav) nav.setAttribute("aria-current","page");
+  window.scrollTo(0,0);
+}
+document.addEventListener("keydown",e=>{ if(keyHandler && !/input|textarea/i.test(e.target.tagName)) keyHandler(e); });
+function syncVoiceBtn(){ const v=$("#voiceBtn"); v.innerHTML=S.voice?ICON.speaker:ICON.mute; v.setAttribute("aria-pressed",S.voice); v.setAttribute("aria-label",S.voice?"Voice is on. Turn voice off.":"Voice is off. Turn voice on."); }
+$("#voiceBtn").onclick=()=>{ S.voice=!S.voice; save(); syncVoiceBtn(); if(S.voice) speak("Voice on"); else stopSpeech(); };
+$("#brandBolt").innerHTML=ICON.bolt(24);
+$("#starIcon").innerHTML=ICON.star(18);
+syncVoiceBtn(); updateStars();
+addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>
